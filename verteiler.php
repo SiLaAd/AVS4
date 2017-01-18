@@ -9,7 +9,9 @@ $wordsArray = array();
 $words = splitInput($_POST['word']);
 $i = 1;
 $ai = 0;
+
 ini_set('memory_limit', '-1');
+
 $servers = countServer();
 echo("Anzahl Server: " . $servers);
 if ($servers == 0) {
@@ -31,7 +33,7 @@ if ($servers == 0) {
     $i=0;
     foreach ($fileWoEx as $ip) {
         if($ip != $_SERVER['SERVER_ADDR']) {
-        $server_url = 'http://'.$ip.'/avs4/levi.php';
+        $server_url = 'http://'.$ip.'/avs4/WordsWriter.php';
         $send = new HTTP_Request2($server_url, HTTP_Request2::METHOD_GET, array('use_brackets' => true));
         $url = $send ->getUrl();
         $url->setQueryVariables(array(
