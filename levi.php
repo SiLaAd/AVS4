@@ -64,14 +64,16 @@ function levenshteins($words) {
     $content = file($filepath );
 
     if (filesize($filepath)!= 0){
-    $results = unserialize($content[0]);
+    $results = urldecode(unserialize($content[0]));
     }
     
-    $results[] = $input." suchen Sie: ".$closest;
+    $writestring = $input." suchen Sie: ".$closest; 
+    
+    $results[] = $writestring;
 
 
     file_put_contents($filepath,"");
-    file_put_contents($filepath, serialize($results));
+    file_put_contents($filepath, urlencode(serialize($results)));
         
     fclose($datei);
      

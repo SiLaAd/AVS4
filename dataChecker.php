@@ -20,9 +20,10 @@ if(filesize($filename)!= 0){
     $words = unserialize($tempString);
     
             levenshteins($words);
+    
             
     file_put_contents($filepath ."wordsToCheck.txt","");
             
 } else {
-    echo "Datei ist leer";
+    
 }
