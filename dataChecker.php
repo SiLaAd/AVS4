@@ -11,15 +11,18 @@ include './levi.php';
 
 $filename = './wordsToCheck.txt';
 
-if(file_exists($filename)){
+if(filesize($filename)!= 0){
     echo "Datei existiert";
     
     $filepath = './';
     
     $tempString = fread(fopen($filepath ."wordsToCheck.txt", 'r'), filesize($filepath ."wordsToCheck.txt"));
-            $words[] = unserialize($tempString);
+    $words = unserialize($tempString);
     
             levenshteins($words);
+            
+    file_put_contents($filepath ."wordsToCheck.txt","");
+            
 } else {
-    echo "Datei existiert nicht";
+    echo "Datei ist leer";
 }

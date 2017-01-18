@@ -24,24 +24,25 @@ function levenshteins($words) {
     }
     foreach ($words as $word) {
 
+
         $input = $word;
 // Wörterarray als Vergleichsquelle
-        $words = $wordsArray;
+        $wordslist = $wordsArray;
 
 // noch keine kürzeste Distanz gefunden
         $shortest = -1;
 
 // durch die Wortliste gehen, um das ähnlichste Wort zu finden
-        foreach ($words as $word) {
+        foreach ($wordslist as $listword) {
 
             // berechne die Distanz zwischen Inputwort und aktuellem Wort
-            $lev = levenshtein($input, $word);
+            $lev = levenshtein($input, $listword);
 
             // auf einen exakten Treffer prüfen
             if ($lev == 0) {
 
                 // das nächste Wort ist das Wort selbst (exakter Treffer)
-                $closest = $word;
+                $closest = $listword;
                 $shortest = 0;
 
                 // Schleife beenden, da wir einen exakten Treffer gefunden haben
@@ -52,7 +53,7 @@ function levenshteins($words) {
             // ODER wenn ein nächstkleineres Wort noch nicht gefunden wurde
             if ($lev <= $shortest || $shortest < 0) {
                 // setze den nächstliegenden Treffer und die kürzestes Distanz
-                $closest = $word;
+                $closest = $listword;
                 $shortest = $lev;
             }
         }
@@ -62,19 +63,21 @@ function levenshteins($words) {
     $datei = fopen($filepath, "a+");   // Datei öffnen
     $content = file($filepath );
 
+    if (filesize($filepath)!= 0){
     $results = unserialize($content[0]);
-
+    }
+    
     $results[] = $input." suchen Sie: ".$closest;
 
 
-    file_put_contents($filepath, "");
-    fwrite($datei, urlencode(serialize($results)));
+    file_put_contents($filepath,"");
+    file_put_contents($filepath, serialize($results));
         
     fclose($datei);
      
         
         
-        echo "ergebnis zu : $input geschrieben\n";
+        echo "ergebnis zu :". $input. "geschrieben\n";
         
     }
 }
