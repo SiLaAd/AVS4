@@ -57,12 +57,25 @@ function levenshteins($words) {
             }
         }
 
-        echo "Eingegebenes Wort: $input\n";
-        if ($shortest == 0) {
-            echo "Exakter Treffer gefunden: $closest\n";
-        } else {
-            echo "Meinten Sie: $closest?\n";
-        }
+    $filepath = './results.txt';
+               
+    $datei = fopen($filepath, "a+");   // Datei öffnen
+    $content = file($filepath );
+
+    $results = unserialize($content[0]);
+
+    $results[] = $input." suchen Sie: ".$closest;
+
+
+    file_put_contents($filepath, "");
+    fwrite($datei, urlencode(serialize($results)));
+        
+    fclose($datei);
+     
+        
+        
+        echo "ergebnis zu : $input geschrieben\n";
+        
     }
 }
 
