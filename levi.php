@@ -2,10 +2,10 @@
 
 ini_set('memory_limit', '-1');
 
-
-if (isset($_GET['wordSend'])) {
-    levenshteins(json_decode($_GET['wordSend']));
-}
+if ($_POST['wordSend']):
+    //echo($_POST['wordSend']);
+    levenshteins($_POST['wordSend']);
+endif;
 
 function levenshteins($words) {
 
@@ -18,13 +18,12 @@ function levenshteins($words) {
             array_push($wordsArray, $line);
         }
         fclose($handle);
-        echo("test");
     } else {
         // error opening the file.
     }
-    foreach ($words as $word) {
+    //foreach ($words as $word) {
 
-        $input = $word;
+        $input = $words;
 // Wörterarray als Vergleichsquelle
         $words = $wordsArray;
 
@@ -56,14 +55,10 @@ function levenshteins($words) {
                 $shortest = $lev;
             }
         }
-
+        echo("Test");
         echo "Eingegebenes Wort: $input\n";
-        if ($shortest == 0) {
-            echo "Exakter Treffer gefunden: $closest\n";
-        } else {
-            echo "Meinten Sie: $closest?\n";
-        }
-    }
+        echo "Meinten Sie: $closest?\n";
+    //}
 }
 
 ?>
